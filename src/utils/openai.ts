@@ -133,7 +133,8 @@ const deduplicateMessages = (array: string[]) => Array.from(new Set(array));
 export const generateCommitMessage = async (
 	apiKey: string,
 	model: TiktokenModel,
-	locale: string,
+	// TODO: remove locale parameter
+	_locale: string,
 	diff: string,
 	completions: number,
 	maxLength: number,
@@ -149,7 +150,7 @@ export const generateCommitMessage = async (
 				messages: [
 					{
 						role: 'system',
-						content: generatePrompt(locale, maxLength, type),
+						content: generatePrompt(maxLength, type),
 					},
 					{
 						role: 'user',

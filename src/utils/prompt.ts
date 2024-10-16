@@ -9,7 +9,6 @@ const specifyCommitFormat = (type: CommitType) =>
 
 const commitTypes: Record<CommitType, string> = {
 	'': '',
-
 	/**
 	 * References:
 	 * Commitlint:
@@ -26,6 +25,7 @@ const commitTypes: Record<CommitType, string> = {
 			refactor: 'A code change that neither fixes a bug nor adds a feature',
 			perf: 'A code change that improves performance',
 			test: 'Adding missing tests or correcting existing tests',
+			infra: 'Changes that affect the way the program is packaged (e.g. docker, CI)',
 			build: 'Changes that affect the build system or external dependencies',
 			ci: 'Changes to our CI configuration files and scripts',
 			chore: "Other changes that don't modify src or test files",
@@ -39,14 +39,13 @@ const commitTypes: Record<CommitType, string> = {
 };
 
 export const generatePrompt = (
-	locale: string,
 	maxLength: number,
 	type: CommitType
 ) =>
 	[
 		'Generate a concise git commit message written in present tense for the following code diff with the given specifications below:',
-		`Message language: ${locale}`,
 		`Commit message must be a maximum of ${maxLength} characters.`,
+		`Commit message must start with a lowercase letter.`,
 		'Exclude anything unnecessary such as translation. Your entire response will be passed directly into git commit.',
 		commitTypes[type],
 		specifyCommitFormat(type),
